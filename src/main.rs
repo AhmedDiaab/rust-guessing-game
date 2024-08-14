@@ -16,10 +16,12 @@ fn main() {
             .read_line(&mut guess) // pass reference to read_line to put whatever user passes into guess
             .expect("Failed to read line");
 
-        let guess: u32 = guess
+        let guess: u32 = match guess // match numbers and ignore special characters and emotes
             .trim()
-            .parse()
-            .expect("Pick a number between 1 and 100...");
+            .parse() {
+                Ok(num) => num,
+                Err(_) => continue,
+            };
 
         println!("you guessed {guess}"); // print guessed number
 
